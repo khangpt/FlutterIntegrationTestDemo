@@ -34,8 +34,8 @@ jobs:
       - name: Run Flutter Driver tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          target: [29]
-          api-level: [playstore]
+          target: 29
+          api-level: playstore
           arch: x86_64
           profile: Nexus 6
           # script: flutter drive --driver=test_driver/integration_test.dart --target=integration_test/increment_success_test.dart
