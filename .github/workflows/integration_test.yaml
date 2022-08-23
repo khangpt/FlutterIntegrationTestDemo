@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - 'test/**'
-  workflow_dispatch:
 
 jobs:
   drive_android:
@@ -13,11 +12,22 @@ jobs:
         api-level: [29]
         target: [playstore]
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+      - name: Setup repository
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v1
         with:
           flutter-version: '3.0.5'
           channel: 'stable'
+
+      - name: Pub get
+        run: make clean && make get
 
       # Run integration test
       - name: Run Flutter Driver tests
@@ -28,7 +38,8 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           # script: flutter drive --driver=test_driver/integration_test.dart --target=integration_test/increment_success_test.dart
-          script: flutter test integration_test/login_test.dart -r expanded
+          # script: flutter test integration_test/login_test.dart -r expanded
+        run: make do_test
 
       # Update screenshot to artifact
       # - name: Upload screenshots
