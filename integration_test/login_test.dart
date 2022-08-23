@@ -1,4 +1,7 @@
+// import 'dart:io';
+
 import 'package:demo/simple_app.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -6,12 +9,26 @@ import 'package:integration_test/integration_test.dart';
 // ignore: avoid_relative_lib_imports
 import '../lib/main.dart' as app;
 
+// Future<void> takeScreenshot(
+//   IntegrationTestWidgetsFlutterBinding binding,
+//   WidgetTester tester, {
+//   required String name,
+// }) async {
+//   if (Platform.isAndroid) {
+//     await binding.convertFlutterSurfaceToImage();
+//     await tester.pumpAndSettle();
+//   }
+//   await binding.takeScreenshot(name);
+// }
+
 void main() {
+  // final binding = IntegrationTestWidgetsFlutterBinding();
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Test login flow', (tester) async {
     app.main();
     await tester.pumpAndSettle();
+    // takeScreenshot(binding, tester, name: 'screenshot-1');
 
     /// phải có chính xác 1 email box
     final emailFinder = find.byKey(const Key('email-box'));
