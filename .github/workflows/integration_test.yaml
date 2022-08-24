@@ -79,9 +79,8 @@ jobs:
           profile: Nexus 6
           script: make do_test
 
-      
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v2
-        with:
-          # name: screenshot
-          path: ../../screenshots/
+      # - name: Upload screenshots
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     # name: screenshot
+      #     path: ../../screenshots/
