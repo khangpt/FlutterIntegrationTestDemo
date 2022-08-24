@@ -40,7 +40,8 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           # script: flutter drive --driver=test_driver/integration_test.dart --target=integration_test/increment_success_test.dart
-          script: flutter test integration_test/login_test.dart -r expanded
+          # script: flutter test integration_test/login_test.dart -r expanded
+          script: make do_test
 
       # Update screenshot to artifact
       # - name: Upload screenshots
