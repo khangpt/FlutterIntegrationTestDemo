@@ -22,8 +22,7 @@ Future<void> takeScreenshot(
 }
 
 void main() {
-  final binding = IntegrationTestWidgetsFlutterBinding();
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Test login flow', (tester) async {
     app.main();

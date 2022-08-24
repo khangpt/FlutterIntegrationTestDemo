@@ -5,49 +5,9 @@ on:
       - test/**
 
 jobs:
-  integration_test_ios:
-    runs-on: macos-latest
-    steps:
-      - name: Setup repository
-        uses: actions/checkout@v2
-
-      - name: Setup Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.0.5'
-          channel: 'stable'
-          architecture: x64
-
-      - name: Pub get
-        run: make clean && make get
-
-      - name: Run Flutter Driver tests
-        uses: futureware-tech/simulator-action@v1
-        with:
-          model: 'iPhone 8'
-          os: 'iOS'
-          os_version: ">=15"
-          erase_before_boot: true
-          shutdown_after_job: true
-      - run: make do_drive
-
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v2
-        with:
-          # name: screenshot
-          path: ../../screenshots/
-
-  # integration_test_android:
+  # integration_test_ios:
   #   runs-on: macos-latest
   #   strategy:
-  #     matrix:
-  #       android-api-level: [29]
-  #       android-target: [playstore]
   #     fail-fast: true
   #   steps:
   #     - name: Setup repository
@@ -68,20 +28,60 @@ jobs:
   #     - name: Pub get
   #       run: make clean && make get
 
-  #     # Run integration test
-  #     - name: Run Flutter Driver tests
-  #       uses: reactivecircus/android-emulator-runner@v2
+  #     - name: Run integration test on ios
+  #       uses: futureware-tech/simulator-action@v1
   #       with:
-  #         target: ${{ matrix.android-target }}
-  #         api-level: ${{ matrix.android-api-level }}
-  #         arch: x86_64
-  #         profile: Nexus 6
-  #         script: make do_test
+  #         model: 'iPhone 8'
+  #         os: 'iOS'
+  #         os_version: ">=15"
+  #         erase_before_boot: true
+  #         shutdown_after_job: true
+  #     - run: make do_drive
 
-  #     # Update screenshot to artifact
-  #     # - name: Upload screenshots
-  #     #   if: always()
-  #     #   uses: actions/upload-artifact@v1
-  #     #   with:
-  #     #     name: screenshot
-  #     #     path: ${{ matrix.path }}screenshots/
+  #     - name: Upload screenshots
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         # name: screenshot
+  #         path: ../../screenshots/
+
+  integration_test_android:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        android-api-level: [29]
+        android-target: [playstore]
+      fail-fast: true
+    steps:
+      - name: Setup repository
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
+          architecture: x64
+
+      - name: Pub get
+        run: make clean && make get
+
+      - name: Run integration test on android
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          target: ${{ matrix.android-target }}
+          api-level: ${{ matrix.android-api-level }}
+          arch: x86_64
+          profile: Nexus 6
+          script: make do_test
+
+      
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v2
+        with:
+          # name: screenshot
+          path: ../../screenshots/
