@@ -34,14 +34,13 @@ jobs:
           os_version: ">=15"
           erase_before_boot: true
           shutdown_after_job: true
-      - run: make do_test
+      - run: make do_drive
 
-      # Update screenshot to artifact
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         with:
-          name: screenshot
-          path: ./screenshots/
+          # name: screenshot
+          path: ../../screenshots/
 
   # integration_test_android:
   #   runs-on: macos-latest
