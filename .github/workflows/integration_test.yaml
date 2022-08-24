@@ -3,9 +3,39 @@ on:
   push:
     branches:
       - 'test/**'
-  workflow_dispatch:
 
 jobs:
+  integration_test_ios:
+    runs-on: macos-latest
+    steps:
+      - name: Setup repository
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
+          architecture: x64
+
+      - name: Pub get
+        run: make clean && make get
+
+      - name: Run Flutter Driver tests
+      - uses: futureware-tech/simulator-action@v1
+        with:
+          model: 'iPhone 8'
+          os: 'iOS'
+          os_version: ">=15"
+          erase_before_boot: true
+          shutdown_after_job: true
+      - run: make do_test
+
   integration_test_android:
     runs-on: macos-latest
     strategy:
