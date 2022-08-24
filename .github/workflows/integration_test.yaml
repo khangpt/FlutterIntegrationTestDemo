@@ -2,7 +2,7 @@ name: Integration test
 on:
   push:
     branches:
-      - 'test/**'
+      - test/**
 
 jobs:
   integration_test_ios:
@@ -27,7 +27,7 @@ jobs:
         run: make clean && make get
 
       - name: Run Flutter Driver tests
-      - uses: futureware-tech/simulator-action@v1
+        uses: futureware-tech/simulator-action@v1
         with:
           model: 'iPhone 8'
           os: 'iOS'
