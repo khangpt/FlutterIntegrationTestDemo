@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:demo/simple_app.dart';
 // import 'package:flutter/foundation.dart';
@@ -9,17 +9,17 @@ import 'package:integration_test/integration_test.dart';
 // ignore: avoid_relative_lib_imports
 import '../lib/main.dart' as app;
 
-Future<void> takeScreenshot(
-  IntegrationTestWidgetsFlutterBinding binding,
-  WidgetTester tester, {
-  required String name,
-}) async {
-  if (Platform.isAndroid) {
-    await binding.convertFlutterSurfaceToImage();
-    await tester.pumpAndSettle();
-  }
-  await binding.takeScreenshot(name);
-}
+// Future<void> takeScreenshot(
+//   IntegrationTestWidgetsFlutterBinding binding,
+//   WidgetTester tester, {
+//   required String name,
+// }) async {
+//   if (Platform.isAndroid) {
+//     await binding.convertFlutterSurfaceToImage();
+//     await tester.pumpAndSettle();
+//   }
+//   await binding.takeScreenshot(name);
+// }
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,6 @@ void main() {
   testWidgets('Test login flow', (tester) async {
     app.main();
     await tester.pumpAndSettle();
-    await takeScreenshot(binding, tester, name: 'pic-1');
 
     /// phải có chính xác 1 email box
     final emailFinder = find.byKey(const Key('email-box'));
@@ -64,8 +63,6 @@ void main() {
 
     await tester.tap(loginButtonFinder);
     await tester.pumpAndSettle();
-
-    await takeScreenshot(binding, tester, name: 'pic-2');
 
     var errorStringWidget = tester.widget<Text>(errorStringFinder);
     expect(errorStringWidget.data, equals('Invalid user input'));
