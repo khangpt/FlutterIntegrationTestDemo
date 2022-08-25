@@ -4,8 +4,8 @@ on:
     branches:
       - test/**
 
-jobs:
-  set_up:
+jobs:    
+  integration_test_ios:
     runs-on: macos-latest
     strategy:
       fail-fast: true
@@ -27,12 +27,7 @@ jobs:
 
       - name: Pub get
         run: make clean && make get
-  integration_test_ios:
-    needs: set_up
-    runs-on: macos-latest
-    strategy:
-      fail-fast: true
-    steps:
+
       - name: Run integration test on ios
         uses: futureware-tech/simulator-action@v1
         with:
@@ -49,7 +44,6 @@ jobs:
       #     # name: screenshot
       #     path: ../../screenshots/
   integration_test_android:
-    needs: set_up
     runs-on: macos-latest
     strategy:
       matrix:
@@ -57,6 +51,24 @@ jobs:
         android-target: [playstore]
       fail-fast: true
     steps:
+      - name: Setup repository
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
+          architecture: x64
+
+      - name: Pub get
+        run: make clean && make get
+
       - name: Run integration test on android
         uses: reactivecircus/android-emulator-runner@v2
         with:
