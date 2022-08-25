@@ -5,44 +5,44 @@ on:
       - test/**
 
 jobs:    
-  # integration_test_ios:
-  #   runs-on: macos-latest
-  #   strategy:
-  #     fail-fast: true
-  #   steps:
-  #     - name: Setup repository
-  #       uses: actions/checkout@v2
+  integration_test_ios:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - name: Setup repository
+        uses: actions/checkout@v2
 
-  #     - name: Setup Java
-  #       uses: actions/setup-java@v1
-  #       with:
-  #         java-version: '12.x'
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
 
-  #     - name: Setup Flutter SDK
-  #       uses: subosito/flutter-action@v2
-  #       with:
-  #         flutter-version: '3.0.5'
-  #         channel: 'stable'
-  #         architecture: x64
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
+          architecture: x64
 
-  #     - name: Pub get
-  #       run: make clean && make get
+      - name: Pub get
+        run: make clean && make get
 
-  #     - name: Run integration test on ios
-  #       uses: futureware-tech/simulator-action@v1
-  #       with:
-  #         model: 'iPhone 8'
-  #         os: 'iOS'
-  #         os_version: ">=15"
-  #         erase_before_boot: true
-  #         shutdown_after_job: true
-  #     - run: make do_test
+      - name: Run integration test on ios
+        uses: futureware-tech/simulator-action@v1
+        with:
+          model: 'iPhone 8'
+          os: 'iOS'
+          os_version: ">=15"
+          erase_before_boot: true
+          shutdown_after_job: true
+      - run: make do_test
 
-  #     # - name: Upload screenshots
-  #     #   uses: actions/upload-artifact@v2
-  #     #   with:
-  #     #     # name: screenshot
-  #     #     path: ../../screenshots/
+      # - name: Upload screenshots
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     # name: screenshot
+      #     path: ../../screenshots/
   integration_test_android:
     runs-on: macos-latest
     strategy:
@@ -76,10 +76,10 @@ jobs:
           api-level: ${{ matrix.android-api-level }}
           arch: x86_64
           profile: Nexus 6
-          script: make do_drive
+          script: make do_test
 
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v2
-        with:
-          # name: screenshot
-          path: build/screenshots/
+      # - name: Upload screenshots
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     # name: screenshot
+      #     path: build/screenshots/
