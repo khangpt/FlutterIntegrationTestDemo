@@ -81,5 +81,5 @@ jobs:
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
         with:
-          name: screenshot
-          path: ../../screenshots/
+          # name: screenshot
+          path: ${{ github.workspace }}/artifact/
