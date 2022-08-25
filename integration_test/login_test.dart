@@ -82,7 +82,7 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    takeScreenshot(binding, tester, name: 'android-screenshot');
+    await takeScreenshot(binding, tester, name: 'android-screenshot');
 
     final centerFinder = find.descendant(
       of: find.byType(SimpleHomePage),
