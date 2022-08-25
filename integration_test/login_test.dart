@@ -42,7 +42,7 @@ void main() {
     /// * sẽ chuyển thành `find.byKey` và thêm Key vào widget Text tương ứng
     // final errorStringFinder = find.text('');
     final errorStringFinder = find.byKey(const Key('error-label'));
-    expect(errorStringFinder, findsOneWidget);
+    expect(errorStringFinder, findsNothing);
 
     /// ban đầu button login phải có & bị disable
     final loginButtonFinder = find.byType(ElevatedButton);
