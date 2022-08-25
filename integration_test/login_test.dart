@@ -79,10 +79,10 @@ void main() {
     /// progress indicator phải hiển thị
     progressIndicatorFinder = find.byType(CircularProgressIndicator);
     expect(progressIndicatorFinder, findsOneWidget);
+    await tester.pump();
+    await takeScreenshot(binding, tester, name: 'android-screenshot');
 
     await tester.pumpAndSettle();
-
-    await takeScreenshot(binding, tester, name: 'android-screenshot');
 
     final centerFinder = find.descendant(
       of: find.byType(SimpleHomePage),
