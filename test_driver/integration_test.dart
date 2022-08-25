@@ -6,7 +6,7 @@ void main() async {
   try {
     await driver.integrationDriver(
       onScreenshot: (name, bytes) async {
-        final file = await File('screenshots/$name.png').create(recursive: true);
+        final file = await File('build/screenshots/$name.png').create(recursive: true);
         file.writeAsBytesSync(bytes);
         return true;
       },
