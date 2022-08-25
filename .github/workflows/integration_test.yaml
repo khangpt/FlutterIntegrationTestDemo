@@ -76,7 +76,7 @@ jobs:
           api-level: ${{ matrix.android-api-level }}
           arch: x86_64
           profile: Nexus 6
-          script: make do_test
+          script: make do_drive
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v2
