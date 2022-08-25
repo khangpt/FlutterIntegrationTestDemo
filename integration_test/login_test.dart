@@ -1,7 +1,6 @@
-// import 'dart:io';
+import 'dart:io';
 
 import 'package:demo/simple_app.dart';
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -9,17 +8,17 @@ import 'package:integration_test/integration_test.dart';
 // ignore: avoid_relative_lib_imports
 import '../lib/main.dart' as app;
 
-// Future<void> takeScreenshot(
-//   IntegrationTestWidgetsFlutterBinding binding,
-//   WidgetTester tester, {
-//   required String name,
-// }) async {
-//   if (Platform.isAndroid) {
-//     await binding.convertFlutterSurfaceToImage();
-//     await tester.pumpAndSettle();
-//   }
-//   await binding.takeScreenshot(name);
-// }
+Future<void> takeScreenshot(
+  IntegrationTestWidgetsFlutterBinding binding,
+  WidgetTester tester, {
+  required String name,
+}) async {
+  if (Platform.isAndroid) {
+    await binding.convertFlutterSurfaceToImage();
+    await tester.pumpAndSettle();
+  }
+  await binding.takeScreenshot(name);
+}
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +41,7 @@ void main() {
     /// * sẽ chuyển thành `find.byKey` và thêm Key vào widget Text tương ứng
     // final errorStringFinder = find.text('');
     final errorStringFinder = find.byKey(const Key('error-label'));
-    expect(errorStringFinder, findsNothing);
+    expect(errorStringFinder, findsOneWidget);
 
     /// ban đầu button login phải có & bị disable
     final loginButtonFinder = find.byType(ElevatedButton);
@@ -82,6 +81,8 @@ void main() {
     expect(progressIndicatorFinder, findsOneWidget);
 
     await tester.pumpAndSettle();
+
+    takeScreenshot(binding, tester, name: 'android-screenshot');
 
     final centerFinder = find.descendant(
       of: find.byType(SimpleHomePage),
