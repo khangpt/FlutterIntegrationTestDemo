@@ -2,7 +2,8 @@ name: Integration test
 on:
   push:
     branches:
-      - test/**
+      - develop
+      # - test/**
 
 jobs:    
   integration_test_ios:
