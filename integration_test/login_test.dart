@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:demo/simple_app.dart';
 import 'package:flutter/material.dart';
@@ -8,20 +8,20 @@ import 'package:integration_test/integration_test.dart';
 // ignore: avoid_relative_lib_imports
 import '../lib/main.dart' as app;
 
-Future<void> takeScreenshot(
-  IntegrationTestWidgetsFlutterBinding binding,
-  WidgetTester tester, {
-  required String name,
-}) async {
-  if (Platform.isAndroid) {
-    await binding.convertFlutterSurfaceToImage();
-    await tester.pumpAndSettle();
-  }
-  await binding.takeScreenshot(name);
-}
+// Future<void> takeScreenshot(
+//   IntegrationTestWidgetsFlutterBinding binding,
+//   WidgetTester tester, {
+//   required String name,
+// }) async {
+//   if (Platform.isAndroid) {
+//     await binding.convertFlutterSurfaceToImage();
+//     await tester.pumpAndSettle();
+//   }
+//   await binding.takeScreenshot(name);
+// }
 
 void main() {
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Test login flow', (tester) async {
     app.main();
@@ -36,7 +36,7 @@ void main() {
     expect(passwordFinder, findsOneWidget);
 
     /// string báo lỗi phải không hiển thị nội dung gì (vì ban đầu user chưa tương tác gì)
-    /// scenarios (xoá trước khi present):
+    /// scenarios:
     /// * sẽ exception chỗ này (vì có quá nhiều widget Text mà có text = "")
     /// * sẽ chuyển thành `find.byKey` và thêm Key vào widget Text tương ứng
     // final errorStringFinder = find.text('');
@@ -96,7 +96,7 @@ void main() {
     /// chờ request network xong (hiện tại đây là cách chờ một request nào đó từ server sau đó mới thực hiện test tiếp)
     await Future.delayed(const Duration(seconds: 5));
 
-    /// scenarios (xoá trước khi present):
+    /// scenarios:
     /// * sẽ exception chỗ này (vì không thể so sánh đúng giá trị của Text trước và sau request giả lập)
     /// * ở đây ta phải pump frame để UI cập nhật giá trị mới sau khi request, nếu không thì case test ở dòng 93 không bao giờ đúng
     await tester.pump();
