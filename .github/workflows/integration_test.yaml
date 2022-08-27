@@ -2,8 +2,8 @@ name: Integration test
 on:
   push:
     branches:
-      - develop
-      # - test/**
+      # - develop
+      - test/**
 
 jobs:    
   integration_test_ios:
@@ -39,11 +39,6 @@ jobs:
           shutdown_after_job: true
       - run: make do_test
 
-      # - name: Upload screenshots
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     # name: screenshot
-      #     path: ../../screenshots/
   integration_test_android:
     runs-on: macos-latest
     strategy:
@@ -78,9 +73,3 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           script: make do_test
-
-      # - name: Upload screenshots
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     # name: screenshot
-      #     path: build/screenshots/
