@@ -1,8 +1,8 @@
-# run cmd: "flutter build ios --config-only integration_test/login.dart" first
+flutter build ios --config-only integration_test/login_test.dart
 
 output="../build/ios_integration"
 product="build/ios_integration/Build/Products"
-dev_target="15.4"
+dev_target="15.0"
 
 flutter build ios integration_test/login_test.dart --release
 
