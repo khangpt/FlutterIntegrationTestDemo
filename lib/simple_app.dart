@@ -90,59 +90,63 @@ class _SimpleLoginPageState extends State<SimpleLoginPage> {
       appBar: AppBar(title: const Text('Login Page')),
       body: SafeArea(
         child: Stack(children: [
-          Column(children: [
-            TextFormField(
-              key: const Key('email-box'),
-              onChanged: (email) => emailNotifier.value = email,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                label: Text('Email'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(children: [
+              const SizedBox(height: 40),
+              TextFormField(
+                key: const Key('email-box'),
+                onChanged: (email) => emailNotifier.value = email,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  label: Text('Email'),
+                ),
               ),
-            ),
-            const SizedBox(height: 24),
-            TextFormField(
-              key: const Key('password-box'),
-              onChanged: (password) => passwordNotifier.value = password,
-              keyboardType: TextInputType.text,
-              obscureText: false,
-              decoration: const InputDecoration(
-                label: Text('Password'),
+              const SizedBox(height: 30),
+              TextFormField(
+                key: const Key('password-box'),
+                onChanged: (password) => passwordNotifier.value = password,
+                keyboardType: TextInputType.text,
+                obscureText: false,
+                decoration: const InputDecoration(
+                  label: Text('Password'),
+                ),
               ),
-            ),
-            const SizedBox(height: 15),
-            ValueListenableBuilder<String?>(
-              valueListenable: errorNotifier,
-              builder: (_, error, child) {
-                return Text(
-                  error ?? '',
-                  key: const Key('error-label'),
-                  style: const TextStyle(color: Colors.red),
-                );
-              },
-            ),
-            ValueListenableBuilder<bool>(
-              valueListenable: loginButtonNotifier,
-              builder: (_, enable, child) {
-                return ElevatedButton(
-                  onPressed: enable
-                      ? () {
-                          errorNotifier.value = isValidEmail(emailNotifier.value!) &&
-                                  isValidPassword(passwordNotifier.value!)
-                              ? null
-                              : 'Invalid user input';
+              const SizedBox(height: 30),
+              ValueListenableBuilder<String?>(
+                valueListenable: errorNotifier,
+                builder: (_, error, child) {
+                  return Text(
+                    error ?? '',
+                    key: const Key('error-label'),
+                    style: const TextStyle(color: Colors.red),
+                  );
+                },
+              ),
+              ValueListenableBuilder<bool>(
+                valueListenable: loginButtonNotifier,
+                builder: (_, enable, child) {
+                  return ElevatedButton(
+                    onPressed: enable
+                        ? () {
+                            errorNotifier.value = isValidEmail(emailNotifier.value!) &&
+                                    isValidPassword(passwordNotifier.value!)
+                                ? null
+                                : 'Invalid user input';
 
-                          pushToHome();
-                        }
-                      : null,
-                  style: ElevatedButton.styleFrom(minimumSize: const Size(200, 50)),
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                );
-              },
-            ),
-          ]),
+                            pushToHome();
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(minimumSize: const Size(200, 50)),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  );
+                },
+              ),
+            ]),
+          ),
           Positioned.fill(
             child: ValueListenableBuilder<bool>(
               valueListenable: showLoadingNotifier,
