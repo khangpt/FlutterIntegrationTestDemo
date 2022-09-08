@@ -2,14 +2,11 @@ name: Integration test
 on:
   push:
     branches:
-      # - develop
       - test/**
 
-jobs:    
-  integration_test_ios:
+jobs:
+  firebase_test_lab:
     runs-on: macos-latest
-    strategy:
-      fail-fast: true
     steps:
       - name: Setup repository
         uses: actions/checkout@v2
@@ -29,47 +26,82 @@ jobs:
       - name: Pub get
         run: make clean && make get
 
-      - name: Run integration test on ios
-        uses: futureware-tech/simulator-action@v1
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/auth@v0
         with:
-          model: 'iPhone 8'
-          os: 'iOS'
-          os_version: ">=15"
-          erase_before_boot: true
-          shutdown_after_job: true
-      - run: make do_test
+          credentials_json: ${{ secrets.GA }}
 
-  integration_test_android:
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        android-api-level: [29]
-        android-target: [playstore]
-      fail-fast: true
-    steps:
-      - name: Setup repository
-        uses: actions/checkout@v2
+      - name: Run integration testing on Android
+        run: ./android_integration.sh
 
-      - name: Setup Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
+      - name: Run integration testing on iOS
+        run: ./ios_integration.sh
 
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.0.5'
-          channel: 'stable'
-          architecture: x64
 
-      - name: Pub get
-        run: make clean && make get
+  # integration_test_ios:
+  #   runs-on: macos-latest
+  #   strategy:
+  #     fail-fast: true
+  #   steps:
+  #     - name: Setup repository
+  #       uses: actions/checkout@v2
 
-      - name: Run integration test on android
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          target: ${{ matrix.android-target }}
-          api-level: ${{ matrix.android-api-level }}
-          arch: x86_64
-          profile: Nexus 6
-          script: make do_test
+  #     - name: Setup Java
+  #       uses: actions/setup-java@v1
+  #       with:
+  #         java-version: '12.x'
+
+  #     - name: Setup Flutter SDK
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         flutter-version: '3.0.5'
+  #         channel: 'stable'
+  #         architecture: x64
+
+  #     - name: Pub get
+  #       run: make clean && make get
+
+  #     - name: Run integration test on ios
+  #       uses: futureware-tech/simulator-action@v1
+  #       with:
+  #         model: 'iPhone 8'
+  #         os: 'iOS'
+  #         os_version: ">=15"
+  #         erase_before_boot: true
+  #         shutdown_after_job: true
+  #     - run: make do_test
+
+  # integration_test_android:
+  #   runs-on: macos-latest
+  #   strategy:
+  #     matrix:
+  #       android-api-level: [29]
+  #       android-target: [playstore]
+  #     fail-fast: true
+  #   steps:
+  #     - name: Setup repository
+  #       uses: actions/checkout@v2
+
+  #     - name: Setup Java
+  #       uses: actions/setup-java@v1
+  #       with:
+  #         java-version: '12.x'
+
+  #     - name: Setup Flutter SDK
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         flutter-version: '3.0.5'
+  #         channel: 'stable'
+  #         architecture: x64
+
+  #     - name: Pub get
+  #       run: make clean && make get
+
+  #     - name: Run integration test on android
+  #       uses: reactivecircus/android-emulator-runner@v2
+  #       with:
+  #         target: ${{ matrix.android-target }}
+  #         api-level: ${{ matrix.android-api-level }}
+  #         arch: x86_64
+  #         profile: Nexus 6
+  #         script: make do_test

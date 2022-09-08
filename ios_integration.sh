@@ -4,7 +4,7 @@ output="../build/ios_integration"
 product="build/ios_integration/Build/Products"
 dev_target="15.0"
 
-flutter build ios integration_test/login_test.dart --release
+flutter build ios -t integration_test/login_test.dart --release
 
 pushd ios
 xcodebuild -workspace Runner.xcworkspace -scheme Runner -config Flutter/Release.xcconfig -derivedDataPath $output -sdk iphoneos build-for-testing
@@ -19,7 +19,7 @@ popd
 
 # test ios
 gcloud firebase test ios run --test "$product/ios_tests.zip" \
-    --device model=ipadmini4,version=$dev_target,orientation=portrait \
+    --device model=iphone11pro,version=$dev_target,orientation=portrait \
     --timeout 5m \
     --results-bucket=gs://integrationtest-demo2.appspot.com \
     --results-dir=tests/ios
