@@ -48,3 +48,5 @@ app.*.map.json
 
 /*.json
 /sakbase64.txt
+/ios/Podfile.lock
+/pubspec.lock

@@ -26,7 +26,13 @@ jobs:
       - name: Pub get
         run: make clean && make get
 
-      - name: Setup Google Cloud SDK
+      - name: Set up gcloud sdk
+        uses: 'google-github-actions/setup-gcloud@v0'
+
+      - name: Check gcloud info
+        run: gcloud info
+
+      - name: authenticate gcloud sdk
         uses: google-github-actions/auth@v0
         with:
           credentials_json: ${{ secrets.GA }}
