@@ -40,8 +40,8 @@ jobs:
       - name: Run integration testing on Android
         run: ./android_integration.sh
 
-      - name: Run integration testing on iOS
-        run: ./ios_integration.sh
+      # - name: Run integration testing on iOS
+      #   run: ./ios_integration.sh
 
 
   # integration_test_ios:
