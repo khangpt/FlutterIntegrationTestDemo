@@ -1,13 +1,18 @@
 flutter build ios --config-only integration_test/login_test.dart
 
-output="../build/ios_integration"
-product="build/ios_integration/Build/Products"
+repository="/Users/runner/work/FlutterIntegrationTestDemo/FlutterIntegrationTestDemo"
+output="$repository/build/ios_integration"
+product="$reposotory/build/ios_integration/Build/Products"
 dev_target="15.0"
 
 flutter build ios -t integration_test/login_test.dart --release
 
 pushd ios
-xcodebuild -workspace Runner.xcworkspace -scheme Runner -config Flutter/Release.xcconfig -derivedDataPath $output -sdk iphoneos build-for-testing
+xcodebuild -workspace Runner.xcworkspace \
+        -scheme Runner \
+        -config Flutter/Release.xcconfig \
+        -derivedDataPath $output \
+        -sdk iphoneos build-for-testing
 popd
 
 pushd $product
