@@ -23,30 +23,7 @@ jobs:
           channel: 'stable'
           architecture: x64
 
-      - name: Pub get
-        run: make clean && make get
-
-      - name: Set up gcloud sdk
-        uses: 'google-github-actions/setup-gcloud@v0'
-
-      - name: Check gcloud info
-        run: gcloud info
-
-      - name: authenticate gcloud sdk
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: ${{ secrets.GA }}
-
-      # - name: Run integration testing on Android
-      #   run: ./android_integration.sh
-
-      # - name: Setup XCode SDK version
-      #   uses: sinoru/actions-setup-xcode@v2
-      #   with:
-      #     xcode-version: '14.7'
-
       - name: Install the Apple certificate and provisioning profile
-        # P12_PASSWORD: KhanG!@#
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
           P12_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
@@ -74,6 +51,28 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+      - name: Pub get
+        run: make clean && make get
+
+      - name: Set up gcloud sdk
+        uses: 'google-github-actions/setup-gcloud@v0'
+
+      - name: Check gcloud info
+        run: gcloud info
+
+      - name: authenticate gcloud sdk
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GA }}
+
+      # - name: Run integration testing on Android
+      #   run: ./android_integration.sh
+
+      # - name: Setup XCode SDK version
+      #   uses: sinoru/actions-setup-xcode@v2
+      #   with:
+      #     xcode-version: '14.7'
 
       - name: Run integration testing on iOS
         run: ./ios_integration.sh
