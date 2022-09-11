@@ -7,7 +7,7 @@ dev_target="15.0"
 flutter build ios -t integration_test/login_test.dart --release
 
 pushd ios
-xcodebuild -workspace Runner.xcworkspace -scheme Runner -config Flutter/Release.xcconfig -derivedDataPath $output -sdk iphoneos -allowProvisioningUpdates build-for-testing
+xcodebuild -workspace Runner.xcworkspace -scheme Runner -config Flutter/Release.xcconfig -derivedDataPath $output -sdk iphoneos build-for-testing
 popd
 
 pushd $product
