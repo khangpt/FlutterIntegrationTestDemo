@@ -1,8 +1,7 @@
 flutter build ios --config-only integration_test/login_test.dart
 
-repository="/Users/runner/work/FlutterIntegrationTestDemo/FlutterIntegrationTestDemo"
-output="$repository/build/ios_integration"
-product="$repository/build/ios_integration/Build/Products"
+output="../build/ios_integration"
+product="build/ios_integration/Build/Products"
 
 # target on github action
 dev_target="15.2"
