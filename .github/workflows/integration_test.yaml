@@ -41,9 +41,9 @@ jobs:
         run: ./android_integration.sh
 
       - name: Setup XCode SDK version
-        uses: maxim-lobanov/setup-xcode@v1
+        uses: sinoru/actions-setup-xcode@v2
         with:
-          xcode-version: ^15.0
+          xcode-version: '14.7'
 
       # - name: Run integration testing on iOS
       #   run: ./ios_integration.sh
