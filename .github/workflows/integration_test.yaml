@@ -61,7 +61,8 @@ jobs:
       - name: Check gcloud info
         run: gcloud info
       
-      - name: Check XCode info
+      - name: Check xcode info
+        run: xcodebuild -version
         run: xcodebuild -showsdks
 
       - name: authenticate gcloud sdk

@@ -2,8 +2,8 @@ flutter build ios --config-only integration_test/login_test.dart
 
 repository="/Users/runner/work/FlutterIntegrationTestDemo/FlutterIntegrationTestDemo"
 output="$repository/build/ios_integration"
-product="$reposotory/build/ios_integration/Build/Products"
-dev_target="15.0"
+product="$repository/build/ios_integration/Build/Products"
+dev_target="15.2"
 
 flutter build ios -t integration_test/login_test.dart --release
 
