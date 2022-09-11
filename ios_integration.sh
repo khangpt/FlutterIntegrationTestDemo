@@ -3,6 +3,8 @@ flutter build ios --config-only integration_test/login_test.dart
 repository="/Users/runner/work/FlutterIntegrationTestDemo/FlutterIntegrationTestDemo"
 output="$repository/build/ios_integration"
 product="$repository/build/ios_integration/Build/Products"
+
+# target on github action
 dev_target="15.2"
 
 flutter build ios -t integration_test/login_test.dart --release
@@ -24,7 +26,7 @@ popd
 
 # test ios
 gcloud firebase test ios run --test "$product/ios_tests.zip" \
-    --device model=iphone11pro,version=$dev_target,orientation=portrait \
+    --device model=iphone13pro,version=$dev_target,orientation=portrait \
     --timeout 5m \
     --results-bucket=gs://integrationtest-demo2.appspot.com \
     --results-dir=tests/ios
