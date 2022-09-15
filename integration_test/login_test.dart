@@ -36,10 +36,6 @@ void main() {
     expect(passwordFinder, findsOneWidget);
 
     /// string báo lỗi phải không hiển thị nội dung gì (vì ban đầu user chưa tương tác gì)
-    /// scenarios:
-    /// * sẽ exception chỗ này (vì có quá nhiều widget Text mà có text = "")
-    /// * sẽ chuyển thành `find.byKey` và thêm Key vào widget Text tương ứng
-    // final errorStringFinder = find.text('');
     final errorStringFinder = find.byKey(const Key('error-label'));
     expect(errorStringFinder, findsOneWidget);
 
@@ -53,6 +49,7 @@ void main() {
     var progressIndicatorFinder = find.byType(CircularProgressIndicator);
     expect(progressIndicatorFinder, findsNothing);
 
+    /// khoan. Dừng lại khoảng chừng là 2 giây để nhìn nghắm giao diện trước khi đi tiếp
     await Future.delayed(const Duration(seconds: 2));
 
     /// nhập dữ liệu và test
@@ -97,8 +94,8 @@ void main() {
     await Future.delayed(const Duration(seconds: 5));
 
     /// scenarios:
-    /// * sẽ exception chỗ này (vì không thể so sánh đúng giá trị của Text trước và sau request giả lập)
-    /// * ở đây ta phải pump frame để UI cập nhật giá trị mới sau khi request, nếu không thì case test ở dòng 93 không bao giờ đúng
+    /// * sẽ exception chỗ này (vì không thể so sánh đúng giá trị của Text trước và sau request)
+    /// * ở đây ta phải pump frame để rebuild widget tree sau khi request
     await tester.pump();
 
     centerLabelFinder = find.descendant(of: centerFinder, matching: find.byType(Text));
